@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tlnb.dao.SeckillSuccessDao" >
+    <insert id="insertSeckillSuccess" >
+        INSERT ignore INTO seckill_success(seckill_id,user_phone)
+        VALUES (#{seckillId},#{userPhone})
+    </insert>
+
+    <select id="queryBySeckillIdWithSeckillSuccess" resultType="seckillSuccess">
+        SELECT
+        sks.seckill_id,
+        sks.user_phone,
+        sks.state,
+        sks.create_time,
+        sk.seckill_id as "seckill.seckill_id",
+        sk.name as "seckill.name",
+        sk.number as "seckill.number",
+        sk.start_time as "seckill.start_time",
+        sk.end_time as "seckill.end_time",
+        sk.create_time as "seckill.create_time"
+        FROM seckill_success sks
+        INNER JOIN seckill sk ON sks.seckill_id = sk.seckill_id
+        WHERE sks.seckill_id = #{seckillId}
+    </select>
+
+</mapper>
