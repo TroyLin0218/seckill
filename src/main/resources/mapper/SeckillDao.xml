@@ -17,7 +17,7 @@
     <select id="queryById" parameterType="long" resultType="seckill">
         SELECT seckill_id,name,number,start_time,end_time,create_time
         FROM seckill
-        WHERE seckill_id = #{seckill_id}
+        WHERE seckill_id = #{seckillId}
     </select>
     <!--resultType中只需给出list中泛型的类型即可
         多个参数不需要给出参数类型
@@ -25,7 +25,7 @@
     <select id="queryAll" resultType="seckill">
         SELECT seckill_id,name,number,start_time,end_time,create_time
         FROM seckill
-        ORDER BY craete_time DESC
+        ORDER BY create_time DESC
         LIMIT #{offset},#{limit}
     </select>
 

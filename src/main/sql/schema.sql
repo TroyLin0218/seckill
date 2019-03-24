@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS seckill_success;
 CREATE TABLE seckill_success(
 `seckill_id` bigint NOT NULL COMMENT ''秒杀商品id'',
 `user_phone` bigint NOT NULL COMMENT ''用户手机号'',
-`state` tinyint NOT NULL DEFAULT -1 COMMENT ''状态标识 -1：无效 0：成功 1：未支付 2：已支付'',
+`state` tinyint NOT NULL DEFAULT -1 COMMENT ''状态标识 -1：无效 0：秒杀成功 1：未支付 2：已支付'',
 `create_time` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT ''创建时间'',
 primary key (seckill_id,user_phone),/*使用联合主键*/
 /*建立索引*/

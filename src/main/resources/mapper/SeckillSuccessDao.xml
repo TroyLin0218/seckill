@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tlnb.dao.SeckillSuccessDao" >
     <insert id="insertSeckillSuccess" >
-        INSERT ignore INTO seckill_success(seckill_id,user_phone)
-        VALUES (#{seckillId},#{userPhone})
+        INSERT ignore INTO seckill_success(seckill_id,user_phone,state)
+        VALUES (#{seckillId},#{userPhone},0)
     </insert>
 
     <select id="queryBySeckillIdWithSeckillSuccess" resultType="seckillSuccess">
@@ -22,7 +22,7 @@
         sk.create_time as "seckill.create_time"
         FROM seckill_success sks
         INNER JOIN seckill sk ON sks.seckill_id = sk.seckill_id
-        WHERE sks.seckill_id = #{seckillId}
+        WHERE sks.seckill_id = #{seckillId} AND sks.user_phone = #{userPhone}
     </select>
 
 </mapper>

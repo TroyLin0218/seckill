@@ -1,6 +1,7 @@
 package com.tlnb.dao;
 
 import com.tlnb.entity.SeckillSuccess;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @Description: TODO
@@ -14,12 +15,12 @@ public interface SeckillSuccessDao {
      * @param userPhone
      * @return
      */
-    int insertSeckillSuccess(long seckillId,long userPhone);
+    int insertSeckillSuccess(@Param("seckillId") long seckillId,@Param("userPhone") long userPhone);
 
     /**
      * 根据秒杀id查询秒杀成功对象并携带秒杀对象实体
      * @param seckillId
      * @return
      */
-    SeckillSuccess queryBySeckillIdWithSeckillSuccess(long seckillId);
+    SeckillSuccess queryBySeckillIdWithSeckillSuccess(@Param("seckillId") long seckillId,@Param("userPhone") long userPhone);
 }
