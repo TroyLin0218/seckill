@@ -31,7 +31,7 @@ public class ExcuteseckillResult {
     }
 
     //秒杀失败构造器
-    public ExcuteseckillResult(long seckillId, SeckillStaticEnum seckillStaticEnum, String stateInfo) {
+    public ExcuteseckillResult(long seckillId, SeckillStaticEnum seckillStaticEnum) {
         this.seckillId = seckillId;
         this.state = seckillStaticEnum.getState();
         this.stateInfo = seckillStaticEnum.getStateInfo();

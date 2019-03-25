@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @Description: TODO
+ * @Description: 秒杀商品表的接口定义
  * @Auther: TianLin
  * @Date: 2019/03/23 023 15:47
  */

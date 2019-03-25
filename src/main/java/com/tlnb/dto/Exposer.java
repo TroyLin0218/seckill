@@ -31,6 +31,14 @@ public class Exposer {
         this.seckillId = seckillId;
     }
 
+    /**
+     * 秒杀未开启
+     * @param isExpose
+     * @param seckillId
+     * @param now
+     * @param start
+     * @param end
+     */
     public Exposer(boolean isExpose, long seckillId, long now, long start, long end) {
         this.isExpose = isExpose;
         this.now = now;

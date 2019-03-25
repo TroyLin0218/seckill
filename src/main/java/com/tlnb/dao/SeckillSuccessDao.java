@@ -4,7 +4,7 @@ import com.tlnb.entity.SeckillSuccess;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * @Description: TODO
+ * @Description: 秒杀成功明细表的接口
  * @Auther: TianLin
  * @Date: 2019/03/23 023 15:52
  */
