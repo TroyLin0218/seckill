@@ -25,16 +25,24 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <c:forEach var="sk" items="${seckillList}">
                         <tr>
-                            <c:forEach var="sk" items="${list}">
-                                <td>${sk.name}</td>
-                                <td>${sk.number}</td>
-                                <td>
-                                    <fmt:formatDate value=""
-                                </td>
-                            </c:forEach>
-
+                            <td>${sk.name}</td>
+                            <td>${sk.number}</td>
+                            <td>
+                                <fmt:formatDate value="${sk.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </td>
+                            <td>
+                                <fmt:formatDate value="${sk.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </td>
+                            <td>
+                                <fmt:formatDate value="${sk.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                            </td>
+                            <td>
+                                <a class="btn btn-info" href="/seckill/${sk.seckillId}/detail" target="_blank">去查看</a>
+                            </td>
                         </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>

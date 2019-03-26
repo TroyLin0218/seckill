@@ -42,6 +42,7 @@ public class SeckillController {
         //获取列表页
         List<Seckill> seckillList = seckillService.getSeckillList();
         //list.jsp= jsp框架+数据（model）
+        System.out.println(seckillList);
         model.addAttribute("seckillList", seckillList);
         /*
         * 在Spring-web中配置了
