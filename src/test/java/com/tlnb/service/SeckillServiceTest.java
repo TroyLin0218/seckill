@@ -70,5 +70,18 @@ public class SeckillServiceTest {
             logger.warn("exposer={}",exposer );
         }
     }
+    @Test
+    public void testExcuteSeckillByProducer(){
+        long seckillId = 1003l;
+        long userPhone = 15012636587l;
+        Exposer exposer = seckillService.getSeckillUrlOrCurrentTime(seckillId);
+        if (exposer.isExpose()){
+            String md5 = exposer.getMd5();
+            ExcuteseckillResult excuteseckillResult = seckillService.excuteSeckillByProducer(seckillId, md5, userPhone);
+            logger.info(excuteseckillResult.getStateInfo());
+
+        }
+
+    }
 
 }

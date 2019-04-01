@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Description: 秒杀商品表的接口定义
@@ -34,4 +35,10 @@ public interface SeckillDao {
      * @return
      */
     List<Seckill> queryAll(@Param("offset") int offset, @Param("limit")int limit);
+
+    /**
+     * 调用存储过程执行秒杀
+     * @param paramsMap
+     */
+    void killByProducer(Map<String,Object> paramsMap);
 }

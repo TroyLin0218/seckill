@@ -11,6 +11,7 @@
         <div class="panel panel-default">
             <div class="panel-heading text-center">
                 <h2>秒杀列表</h2>
+                <h4>个人中心</h4>
             </div>
             <div class="panel-bady">
                 <table class="table table-hover">

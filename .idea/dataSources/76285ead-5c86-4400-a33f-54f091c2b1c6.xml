@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="ssm@localhost">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.11">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.14">
     <root id="1">
       <ServerVersion>8.0.11</ServerVersion>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -1121,7 +1121,12 @@
       <Comment>秒杀成功明细表</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <column id="282" parent="280" name="seckill_id">
+    <routine id="282" parent="7" name="execute_seckill">
+      <SourceTextLength>1298</SourceTextLength>
+      <Definer>root@localhost</Definer>
+      <RoutineKind>procedure</RoutineKind>
+    </routine>
+    <column id="283" parent="280" name="seckill_id">
       <Position>1</Position>
       <Comment>商品库存id</Comment>
       <DataType>bigint(20)|0s</DataType>
@@ -1129,35 +1134,35 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="283" parent="280" name="name">
+    <column id="284" parent="280" name="name">
       <Position>2</Position>
       <Comment>商品名称</Comment>
       <DataType>varchar(120)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="284" parent="280" name="number">
+    <column id="285" parent="280" name="number">
       <Position>3</Position>
       <Comment>库存数量</Comment>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="280" name="start_time">
+    <column id="286" parent="280" name="start_time">
       <Position>4</Position>
       <Comment>秒杀开启时间</Comment>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="286" parent="280" name="end_time">
+    <column id="287" parent="280" name="end_time">
       <Position>5</Position>
       <Comment>秒杀结束时间</Comment>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="287" parent="280" name="create_time">
+    <column id="288" parent="280" name="create_time">
       <Position>6</Position>
       <Comment>秒杀创建时间</Comment>
       <DataType>timestamp|0s</DataType>
@@ -1165,46 +1170,46 @@
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="288" parent="280" name="idx_start_time">
+    <index id="289" parent="280" name="idx_start_time">
       <ColNames>start_time</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="289" parent="280" name="idx_end_time">
+    <index id="290" parent="280" name="idx_end_time">
       <ColNames>end_time</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="290" parent="280" name="idx_create_time">
+    <index id="291" parent="280" name="idx_create_time">
       <ColNames>create_time</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="291" parent="280" name="PRIMARY">
+    <key id="292" parent="280" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>seckill_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="292" parent="281" name="seckill_id">
+    <column id="293" parent="281" name="seckill_id">
       <Position>1</Position>
       <Comment>秒杀商品id</Comment>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="293" parent="281" name="user_phone">
+    <column id="294" parent="281" name="user_phone">
       <Position>2</Position>
       <Comment>用户手机号</Comment>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="294" parent="281" name="state">
+    <column id="295" parent="281" name="state">
       <Position>3</Position>
       <Comment>状态标识 -1：无效 0：成功 1：未支付 2：已支付</Comment>
       <DataType>tinyint(4)|0s</DataType>
       <NotNull>1</NotNull>
-      <DefaultExpression>&apos;-1&apos;</DefaultExpression>
+      <DefaultExpression>-1</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="295" parent="281" name="create_time">
+    <column id="296" parent="281" name="create_time">
       <Position>4</Position>
       <Comment>创建时间</Comment>
       <DataType>timestamp|0s</DataType>
@@ -1212,15 +1217,32 @@
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="296" parent="281" name="idx_create_time">
+    <index id="297" parent="281" name="idx_create_time">
       <ColNames>create_time</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="297" parent="281" name="PRIMARY">
+    <key id="298" parent="281" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>seckill_id
 user_phone</ColNames>
       <Primary>1</Primary>
     </key>
+    <argument id="299" parent="282" name="v_seckill_id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0s</DataType>
+    </argument>
+    <argument id="300" parent="282" name="v_phone">
+      <Position>2</Position>
+      <DataType>bigint(20)|0s</DataType>
+    </argument>
+    <argument id="301" parent="282" name="v_kill_time">
+      <Position>3</Position>
+      <DataType>timestamp|0s</DataType>
+    </argument>
+    <argument id="302" parent="282" name="r_result">
+      <Position>4</Position>
+      <ArgumentDirection>O</ArgumentDirection>
+      <DataType>int(11)|0s</DataType>
+    </argument>
   </database-model>
 </dataSource>

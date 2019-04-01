@@ -9,7 +9,7 @@ package com.tlnb.dto;
 public class SeckillResult<T> {
 
     //是否秒杀成功
-    private boolean succuss;
+    private boolean success;
 
     //秒杀成功的数据
     private T data;
@@ -18,31 +18,31 @@ public class SeckillResult<T> {
     private String error;
 
     /**
-     * 秒杀成功构造器
-     * @param succuss  true
+     * 成功构造器
+     * @param success  true
      * @param data
      */
-    public SeckillResult(boolean succuss, T data) {
-        this.succuss = succuss;
+    public SeckillResult(boolean success, T data) {
+        this.success = success;
         this.data = data;
     }
 
     /**
-     * 失败的构造器
-     * @param succuss false
+     * 失败构造器
+     * @param success false
      * @param error
      */
-    public SeckillResult(boolean succuss, String error) {
-        this.succuss = succuss;
+    public SeckillResult(boolean success, String error) {
+        this.success = success;
         this.error = error;
     }
 
     public boolean isSuccuss() {
-        return succuss;
+        return success;
     }
 
     public void setSuccuss(boolean succuss) {
-        this.succuss = succuss;
+        this.success = succuss;
     }
 
     public T getData() {
@@ -59,5 +59,14 @@ public class SeckillResult<T> {
 
     public void setError(String error) {
         this.error = error;
+    }
+
+    @Override
+    public String toString() {
+        return "SeckillResult{" +
+                "success=" + success +
+                ", data=" + data +
+                ", error='" + error + '\'' +
+                '}';
     }
 }

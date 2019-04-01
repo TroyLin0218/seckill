@@ -8,7 +8,7 @@ package com.tlnb.dto;
 public class Exposer {
 
     //是否暴露秒杀地址
-    private boolean isExpose;
+    private boolean expose;
 
     //加密方式
     private String md5;
@@ -25,39 +25,33 @@ public class Exposer {
     //结束时间
     private long end;
 
-    public Exposer(boolean isExpose, String md5, long seckillId) {
-        this.isExpose = isExpose;
+    public Exposer(boolean expose, String md5, long seckillId) {
+        this.expose = expose;
         this.md5 = md5;
         this.seckillId = seckillId;
     }
 
     /**
      * 秒杀未开启
-     * @param isExpose
+     *
+     * @param expose
      * @param seckillId
      * @param now
      * @param start
      * @param end
      */
-    public Exposer(boolean isExpose, long seckillId, long now, long start, long end) {
-        this.isExpose = isExpose;
+    public Exposer(boolean expose, long seckillId, long now, long start, long end) {
+        this.expose = expose;
         this.now = now;
         this.start = start;
         this.end = end;
     }
 
-    public Exposer(boolean isExpose, long seckillId) {
-        this.isExpose = isExpose;
+    public Exposer(boolean expose, long seckillId) {
+        this.expose = expose;
         this.seckillId = seckillId;
     }
 
-    public boolean isExpose() {
-        return isExpose;
-    }
-
-    public void setExpose(boolean expose) {
-        isExpose = expose;
-    }
 
     public String getMd5() {
         return md5;
@@ -99,10 +93,18 @@ public class Exposer {
         this.end = end;
     }
 
+    public boolean isExpose() {
+        return expose;
+    }
+
+    public void setExpose(boolean expose) {
+        this.expose = expose;
+    }
+
     @Override
     public String toString() {
         return "Exposer{" +
-                "isExpose=" + isExpose +
+                "expose=" + expose +
                 ", md5='" + md5 + '\'' +
                 ", seckillId=" + seckillId +
                 ", now=" + now +

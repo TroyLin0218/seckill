@@ -41,7 +41,7 @@ public class SeckillController {
     public String seckillList(Model model) {
         //获取列表页
         List<Seckill> seckillList = seckillService.getSeckillList();
-        //list.jsp= jsp框架+数据（model）
+        //list.jsp= jsp骨架+数据（model）
         System.out.println(seckillList);
         model.addAttribute("seckillList", seckillList);
         /*
@@ -73,26 +73,30 @@ public class SeckillController {
             return "forward:/seckill/list";
         }
         //否则添加到页面数据中
+        System.out.println("startTime:" + seckill.getStartTime().getTime());
         model.addAttribute("seckill", seckill);
         return "detail";
     }
 
     /**
      * ajax请求，暴露秒杀地址
+     *
      * @param seckillId
      * @return
      */
-    @RequestMapping(value = "/{seckillId}/exposer/",method = RequestMethod.POST,
+    @RequestMapping(value = "/{seckillId}/exposer/", method = RequestMethod.POST,
             produces = {"application/json;charset=UTF-8"})
     @ResponseBody
-    public SeckillResult<Exposer> exposer(Long seckillId) {
+    public SeckillResult<Exposer> exposer(@PathVariable("seckillId") Long seckillId) {
         SeckillResult<Exposer> result;
         Exposer exposer;
         try {
             exposer = seckillService.getSeckillUrlOrCurrentTime(seckillId);
+            System.out.println(exposer);
             result = new SeckillResult<Exposer>(true, exposer);
         } catch (Exception e) {
             logger.error(e.getMessage());
+            System.out.println(false);
             result = new SeckillResult<Exposer>(false, e.getMessage());
         }
         return result;
@@ -100,48 +104,54 @@ public class SeckillController {
 
     /**
      * 执行秒杀
+     *
      * @param seckillId
      * @param md5
      * @param userPhone
      * @return
      */
-    @RequestMapping(value = "/{seckillId}/{md5}/",method = RequestMethod.POST,
+    @RequestMapping(value = "/{seckillId}/{md5}/", method = RequestMethod.POST,
             produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public SeckillResult<ExcuteseckillResult> excute(@PathVariable("seckillId") Long seckillId,
                                                      @PathVariable("md5") String md5,
-                                                     @CookieValue(value = "userPhone",required = false)Long userPhone){
-        if (userPhone==null){
-            return new SeckillResult<>(false,"未注册");
+                                                     @CookieValue(value = "killPhone", required = false) Long userPhone) {
+        if (userPhone == null) {
+            return new SeckillResult<>(true, "未注册");
         }
         ExcuteseckillResult excuteseckillResult;
         try {
             //秒杀成功
-            excuteseckillResult = seckillService.excuteSeckill(seckillId, md5, userPhone);
-            return new SeckillResult<ExcuteseckillResult>(true,excuteseckillResult);
-        }catch (RepeatSeckillException e){
+            /*excuteseckillResult = seckillService.excuteSeckill(seckillId, md5, userPhone);*/
+            //通过调用存储过程达到优化
+            excuteseckillResult = seckillService.excuteSeckillByProducer(seckillId, md5, userPhone);
+            return new SeckillResult<ExcuteseckillResult>(true, excuteseckillResult);
+        } catch (RepeatSeckillException e) {
             //重复秒杀
             excuteseckillResult = new ExcuteseckillResult(seckillId, SeckillStaticEnum.REPEAT_KILL);
-            return new SeckillResult<ExcuteseckillResult>(false,excuteseckillResult);
-        }catch (SeckillCloseException e){
+            return new SeckillResult<ExcuteseckillResult>(true, excuteseckillResult);
+        } catch (SeckillCloseException e) {
             //秒杀结束
             excuteseckillResult = new ExcuteseckillResult(seckillId, SeckillStaticEnum.END);
-            return new SeckillResult<ExcuteseckillResult>(false,excuteseckillResult);
-        }catch (Exception e){
+            return new SeckillResult<ExcuteseckillResult>(true, excuteseckillResult);
+        } catch (Exception e) {
             //其他异常
             excuteseckillResult = new ExcuteseckillResult(seckillId, SeckillStaticEnum.INNER＿ERROE);
-            return new SeckillResult<ExcuteseckillResult>(false,excuteseckillResult);
+            return new SeckillResult<ExcuteseckillResult>(true, excuteseckillResult);
         }
     }
 
     /**
      * 获取系统当前时间
+     *
      * @return
      */
-    @RequestMapping(value = "/time/current/",method = RequestMethod.GET)
-    public SeckillResult<Long> currentTime(){
+    @RequestMapping(value = "/time/current/", method = RequestMethod.GET)
+    @ResponseBody
+    public SeckillResult<Long> currentTime() {
         Date currentTime = new Date();
-        return new SeckillResult<Long>(true,currentTime.getTime());
+        SeckillResult<Long> result = new SeckillResult<>(true, currentTime.getTime());
+        return result;
     }
 }
 
